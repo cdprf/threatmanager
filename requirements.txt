@@ -1,0 +1,16 @@
+######################################################
+# threat manager requirements file
+######################################################
+
+#string comparion algorthms
+strsimpy>=0.2.1
+#supports domain name whois functionality
+python-whois>=0.7.3
+#supports ip whois functionality and imports dnspython
+ipwhois>=1.2.0
+#insure correct version of dnspython is installed to support ipwhois
+dnspython>=2.0.0
+#shodan api library
+shodan>=1.27.0
+#DNSBL look-up tool
+pydnsbl>=1.1.4

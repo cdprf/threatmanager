@@ -1,0 +1,134 @@
+Description
+# ######################################################################
+
+    File Name:      Read.Me
+    Version:        0.1
+    Created:        June 12, 2022
+    Last Edited:    July 5, 2022
+    Author:         <dmranta>[@]<cert.org>
+
+    Description:    This is the "READ.ME" file that describes the set up
+                    and operation of the "Threat Manager" suite of tools.
+
+# ######################################################################
+
+
+This suite consists of the the following applications:
+
+Primary Scripts
+===============
+
+threatmgr.py   This application acts as manager for access to the
+                Threat Manager suite functionality and provides a
+                common command line interface for accessing commonly
+                executed queries for each of the component applications
+                (see descriptions below)
+
+shscan.py       This application provides access to the Shodan API
+                to search for hosts of interest that have identified
+                vulnerabilities and are related to "known" organizations,
+                domains, ip addresses, network CIDRS, etc., of interest.
+                Access to the Shodan API requires an API key and the
+                application will NOT operate without one.
+
+stcompare.py    This application provides access to the Security Trails
+                API to conduct evaluations of "known" company names,
+                host names, domain names, etc., of interest against a
+                Security Trails generated list of newly registered
+                and/or reactivated domain names. The user will be
+                prompted to download the list, if the most recent
+                daily list of "new" domain names is not present. Access
+                to the Security Trails API requires an API key and the
+                application will NOT operatewithout one.
+                The results of these stcompare.py queries are
+                supplemented with additional data from the NIST NVD
+                API and the AbuseIP API, both of which also require API
+                keys for access. API keys for these sources, however are
+                not required for operation. Additionally, information
+                from the Block List Manager application is also used to
+                supplement generated results.
+
+blmanager.py    This application is the "Block List Manager" and
+                aggregates malicious ip address and network CIDR
+                information from a number of public sources. These
+                public sources are defined in a configuration file
+                in the "config" subdirectory. The functionality that
+                this application provides is also used within the
+                "shscan.py" described earlier, and additionally may
+                be queried and/or updated directly from the "Treat
+                Manager" interface or from the command line. This
+                application also queriess external sources for
+                additional imformation and, by default, provide results
+                in an HTML file.
+
+
+Supplemental scripts
+====================
+
+templates.py    File containing template strings used to support
+                functionality of Threat Manager objects.
+
+utilities.py    Utility functions, regular expressions, etc.
+                leveraged by the Threat Manager object instances to
+                support operation.
+
+                
+Additional Information
+======================
+
+Config Files    Some specific information that may be required, or
+                otherwise used to support suite operations are provided
+                through the use of both general use and application
+                specific configuration files. These configuration files
+                are located with the "config" subdirectory beneath the
+                application root directory. Specifically there is a
+                "keys.ini" file that must be populated with the API keys
+                (required and optional) necessary for full operation of
+                the Threat Manager Suite
+
+"knowns" Files  Lists of the "known" strings necessary to support the
+                operation of specific component applications are found
+                in the "knowns" subdirectory beneath the application
+                root directory. The "knowns" subdirectory contains
+                application specific subdirectories which each must
+                contain a "knowns.txt" file for proper operations. The
+                "knowns.txt" file is a line seperated list of a
+                combination of known strings of interest, i.e. company
+                names, domain names, ip addresses, network CIDRs, etc.,
+                depending on the specific application. 
+                
+PREREQUITES
+===========
+
+1.  Decompress the Threat Manager suite compressed file in the desired
+    location on your computer
+2.  Change directories to the Threat Manger directory
+3.  Using pip3 install the requirements defined in the "requirements.txt"
+    file, i.e.
+        <application directory>$ pip3 install -r requirements.txt
+    This will insure that the python libraries required for operation
+    are installed on the system
+4.  Under the application root directory, populate the "known.txt"
+    files in the application-specific subdirectories for:
+        shscan.py       Organization/company names, host names, IP
+                        addresses, network CIDRs
+        stcompare.py    Organization/company names, domain names 
+4.  Populate the "<application root>/config/keys.ini" file with required
+    and optional API keys.
+5.  [optional] Populate the "<application root>/config/blmanager.cfg"
+    file with any other publically available IP address block list
+    information you may ish to use.
+6.  [optional] Use chmod (or equivalent) to make the "apimanager.py"
+    file executable
+
+
+OPERATION
+=========
+1.  Change directories to the application root directory. Proper
+    operation of the Threat Manager application will NOT be possible if the
+    executable is called from outside the application root directory
+2.  From the command prompt, enter "python3 ./threatmgr.py" and hit
+    the <enter> key. Note: The use of the python3 prefix is not
+    necessary if the threatmgr.py application was made executable in
+    Step 6 above.
+3. Make a selection(s) from the list provided
